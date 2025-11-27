@@ -1,0 +1,9 @@
+<h2>{{ view.object.pk|yesno:"ویرایش پرونده,ایجاد پرونده" }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ذخیره</button>
+</form>
+
+<a href="{% url 'generalfile_list' %}">بازگشت</a>

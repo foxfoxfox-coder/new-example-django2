@@ -1,0 +1,10 @@
+<h3>آیا از حذف این پرونده مطمئن هستید؟</h3>
+
+<p>{{ object }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">حذف</button>
+</form>
+
+<a href="{% url 'generalfile_list' %}">انصراف</a>
