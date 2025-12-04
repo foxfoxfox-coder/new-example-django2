@@ -14,6 +14,11 @@
         h1,h2,h3,h4,h5,h6 {
             font-weight: 600;
         }
+
+        /* Force all text inside card to be right-aligned */
+        .card-body {
+            text-align: right !important;
+        }
     </style>
 </head>
 <body class="bg-light p-4">
@@ -21,7 +26,7 @@
 <div class="container" style="max-width: 600px; margin-top: 50px;">
 
     <div class="card shadow-sm">
-        <div class="card-body text-end"> <!-- text-end makes it right aligned -->
+        <div class="card-body"> <!-- all text inside will be right-aligned -->
             <h3 class="card-title mb-3">آیا از حذف این پرونده مطمئن هستید؟</h3>
 
             <p class="mb-4"><strong>{{ object }}</strong></p>

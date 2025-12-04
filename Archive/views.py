@@ -17,9 +17,14 @@ class GeneralFileListView(ListView):
     def get_queryset(self):
         qs = GeneralFile.objects.all()
 
+        first_name = self.request.GET.get('first_name')
         last_name = self.request.GET.get("last_name")
         phone = self.request.GET.get("phone_number")
         national_code = self.request.GET.get("national_code")
+        file_number = self.request.GET.get("file_number")
+
+        if first_name:
+            qs = qs.filter(first_name__icontains=first_name)
 
         if last_name:
             qs = qs.filter(last_name__icontains=last_name)
@@ -29,6 +34,9 @@ class GeneralFileListView(ListView):
 
         if national_code:
             qs = qs.filter(national_code__icontains=national_code)
+
+        if file_number:
+            qs = qs.filter(file_number__icontains=file_number)
 
         return qs
 

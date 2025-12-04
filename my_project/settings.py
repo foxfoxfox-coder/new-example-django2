@@ -51,10 +51,24 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',   # must be present
+    # ... add our custom login-required middleware AFTER auth middleware
+    'my_project.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATIC_URL = 'static/'
+
+# Main global STATIC folder (outside apps)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# For production (collectstatic)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+LOGIN_URL = "/accounts/login/"
 
 ROOT_URLCONF = 'my_project.urls'
 

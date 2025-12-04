@@ -16,7 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from django.contrib.auth import views as auth_views
+from .views import CustomLoginView, home_redirect
 urlpatterns = [
+    path('', home_redirect, name='home'),
+
+    # Redirect /accounts/ → /accounts/login/
+    path('accounts/', RedirectView.as_view(url='/accounts/login/', permanent=False)),
+
+    # Override only the login URL
+    path('accounts/login/', CustomLoginView.as_view(template_name='login.html'), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    # Keep all default Django auth URLs EXCEPT login/logout
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path("files/", include("Archive.urls")),  # <- another app
 ]
