@@ -6,7 +6,13 @@ from django.db.models import Q
 from .models import GeneralFile
 from .forms import GeneralFileForm
 
+from persiantools import digits
 
+def normalize(value):
+    if not value:
+        return value
+    value = digits.fa_to_en(value)
+    return value
 
 class GeneralFileListView(ListView):
     model = GeneralFile
@@ -19,9 +25,9 @@ class GeneralFileListView(ListView):
 
         first_name = self.request.GET.get('first_name')
         last_name = self.request.GET.get("last_name")
-        phone = self.request.GET.get("phone_number")
-        national_code = self.request.GET.get("national_code")
-        file_number = self.request.GET.get("file_number")
+        national_code = normalize(self.request.GET.get('national_code'))
+        phone = normalize(self.request.GET.get('phone_number'))
+        file_number = normalize(self.request.GET.get('file_number'))
 
         if first_name:
             qs = qs.filter(first_name__icontains=first_name)
